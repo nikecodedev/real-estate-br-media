@@ -9,7 +9,7 @@ export interface Imovel {
   tipo: TipoImovel;
   status: StatusImovel;
   destaque: boolean;
-  preco: number;
+  preco: number | null;
   finalidade: FinalidadeImovel;
   endereco: string;
   bairro: string;

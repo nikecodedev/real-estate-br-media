@@ -17,6 +17,11 @@ function campoNumero(formData: FormData, nome: string): number {
   return v ? Number(v) : 0;
 }
 
+function campoNumeroOuNulo(formData: FormData, nome: string): number | null {
+  const v = campoTexto(formData, nome);
+  return v ? Number(v) : null;
+}
+
 async function uploadFotos(formData: FormData): Promise<string[]> {
   const supabase = createAdminClient();
   const arquivos = formData.getAll("fotos").filter(
@@ -50,7 +55,7 @@ function montarDadosImovel(formData: FormData) {
     tipo: campoTexto(formData, "tipo"),
     status: campoTexto(formData, "status") || "disponivel",
     destaque: formData.get("destaque") === "on",
-    preco: campoNumero(formData, "preco"),
+    preco: campoNumeroOuNulo(formData, "preco"),
     finalidade: campoTexto(formData, "finalidade") || "venda",
     endereco: campoTexto(formData, "endereco"),
     bairro: campoTexto(formData, "bairro"),

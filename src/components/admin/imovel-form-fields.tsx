@@ -60,8 +60,8 @@ export function ImovelFormFields({ imovel }: { imovel?: Imovel }) {
           name="preco"
           type="number"
           step="0.01"
-          defaultValue={imovel?.preco}
-          required
+          defaultValue={imovel?.preco ?? ""}
+          placeholder="Deixe em branco para mostrar &quot;Consulte o valor&quot;"
           className={CAMPO}
         />
       </div>

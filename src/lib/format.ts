@@ -1,4 +1,5 @@
-export function formatarPreco(preco: number): string {
+export function formatarPreco(preco: number | null): string {
+  if (preco === null) return "Consulte o valor";
   return preco.toLocaleString("pt-BR", {
     style: "currency",
     currency: "BRL",

@@ -10,7 +10,7 @@ create table if not exists public.imoveis (
   tipo text not null, -- apartamento | casa | terreno | comercial | rural
   status text not null default 'disponivel', -- disponivel | vendido | alugado
   destaque boolean not null default false,
-  preco numeric(12, 2) not null,
+  preco numeric(12, 2), -- null = "Consulte o valor" on the site
   finalidade text not null default 'venda', -- venda | aluguel
   endereco text not null,
   bairro text not null,
