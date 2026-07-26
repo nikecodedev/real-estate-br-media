@@ -14,7 +14,7 @@ create table if not exists public.imoveis (
   finalidade text not null default 'venda', -- venda | aluguel
   endereco text not null,
   bairro text not null,
-  cidade text not null default 'Salvador',
+  cidade text not null default 'Seabra',
   estado text not null default 'BA',
   area_m2 numeric(8, 2),
   quartos int default 0,

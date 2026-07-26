@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { formatarTelefoneExibicao, linkWhatsapp } from "@/lib/format";
 
 export function SiteFooter() {
   const ano = new Date().getFullYear();
@@ -38,9 +39,12 @@ export function SiteFooter() {
             Contato
           </h3>
           <ul className="space-y-2 text-sm">
-            <li>WhatsApp: (71) 90000-0000</li>
-            <li>contato@lisnerycorretora.com.br</li>
-            <li>Salvador, BA</li>
+            <li>
+              <a href={linkWhatsapp("Olá! Vi o site e gostaria de mais informações.")} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                WhatsApp: {formatarTelefoneExibicao()}
+              </a>
+            </li>
+            <li>Rua Pio XII, 945 - Seabra, BA</li>
           </ul>
         </div>
       </div>

@@ -98,7 +98,7 @@ export function ImovelFormFields({ imovel }: { imovel?: Imovel }) {
 
       <div>
         <label className={ROTULO}>Cidade</label>
-        <input name="cidade" defaultValue={imovel?.cidade ?? "Salvador"} required className={CAMPO} />
+        <input name="cidade" defaultValue={imovel?.cidade ?? "Seabra"} required className={CAMPO} />
       </div>
 
       <div>

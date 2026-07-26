@@ -59,7 +59,7 @@ function montarDadosImovel(formData: FormData) {
     finalidade: campoTexto(formData, "finalidade") || "venda",
     endereco: campoTexto(formData, "endereco"),
     bairro: campoTexto(formData, "bairro"),
-    cidade: campoTexto(formData, "cidade") || "Salvador",
+    cidade: campoTexto(formData, "cidade") || "Seabra",
     estado: campoTexto(formData, "estado") || "BA",
     area_m2: campoTexto(formData, "area_m2") ? campoNumero(formData, "area_m2") : null,
     quartos: campoNumero(formData, "quartos"),
