@@ -52,6 +52,25 @@ export async function criarImovel(formData: FormData) {
   const dados = montarDadosImovel(formData);
 
   const supabase = createAdminClient();
+
+  // Guard against double-submits (double click, slow network + retry) creating
+  // the same listing twice: same title + address within the last couple of
+  // minutes is treated as a duplicate rather than a new listing.
+  const doisMinutosAtras = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+  const { data: existente } = await supabase
+    .from("imoveis")
+    .select("id")
+    .eq("titulo", dados.titulo)
+    .eq("endereco", dados.endereco)
+    .gte("criado_em", doisMinutosAtras)
+    .limit(1)
+    .maybeSingle();
+
+  if (existente) {
+    revalidatePath("/admin/imoveis");
+    redirect("/admin/imoveis?sucesso=duplicado");
+  }
+
   const { error } = await supabase.from("imoveis").insert({ ...dados, fotos: novasFotos });
 
   if (error) {

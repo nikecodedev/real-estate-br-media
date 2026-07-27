@@ -1,6 +1,7 @@
 import { requireAdmin } from "@/lib/auth";
 import { criarImovel } from "@/app/actions/imoveis";
 import { ImovelFormFields } from "@/components/admin/imovel-form-fields";
+import { SubmitButton } from "@/components/admin/submit-button";
 
 export default async function NovoImovelPage() {
   await requireAdmin();
@@ -17,12 +18,7 @@ export default async function NovoImovelPage() {
         <ImovelFormFields />
 
         <div className="sm:col-span-2">
-          <button
-            type="submit"
-            className="rounded-md bg-ln-gold px-6 py-3 font-semibold text-ln-ink transition hover:bg-ln-gold-dark hover:text-white"
-          >
-            Cadastrar imóvel
-          </button>
+          <SubmitButton>Cadastrar imóvel</SubmitButton>
         </div>
       </form>
     </div>

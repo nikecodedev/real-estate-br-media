@@ -7,6 +7,7 @@ const MENSAGENS_SUCESSO: Record<string, string> = {
   criado: "Imóvel criado com sucesso.",
   atualizado: "Alterações salvas com sucesso.",
   excluido: "Imóvel excluído.",
+  duplicado: "Esse imóvel já tinha sido cadastrado, nada foi duplicado.",
 };
 
 const DURACAO_MS = 5000;

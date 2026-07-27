@@ -3,6 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import { getImovelAdmin } from "@/lib/admin-data";
 import { atualizarImovel } from "@/app/actions/imoveis";
 import { ImovelFormFields } from "@/components/admin/imovel-form-fields";
+import { SubmitButton } from "@/components/admin/submit-button";
 
 export default async function EditarImovelPage({
   params,
@@ -28,12 +29,7 @@ export default async function EditarImovelPage({
         <ImovelFormFields imovel={imovel} />
 
         <div className="sm:col-span-2">
-          <button
-            type="submit"
-            className="rounded-md bg-ln-gold px-6 py-3 font-semibold text-ln-ink transition hover:bg-ln-gold-dark hover:text-white"
-          >
-            Salvar alterações
-          </button>
+          <SubmitButton>Salvar alterações</SubmitButton>
         </div>
       </form>
     </div>
