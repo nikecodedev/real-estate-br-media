@@ -25,9 +25,6 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <span className="font-semibold text-ln-gold">Painel Lis Nery</span>
               <nav className="flex gap-4 text-sm">
                 <Link href="/admin" className="hover:text-ln-gold">
-                  Início
-                </Link>
-                <Link href="/admin/imoveis" className="hover:text-ln-gold">
                   Imóveis
                 </Link>
                 <Link href="/admin/mensagens" className="hover:text-ln-gold">

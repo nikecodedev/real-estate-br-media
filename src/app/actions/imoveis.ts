@@ -67,8 +67,8 @@ export async function criarImovel(formData: FormData) {
     .maybeSingle();
 
   if (existente) {
-    revalidatePath("/admin/imoveis");
-    redirect("/admin/imoveis?sucesso=duplicado");
+    revalidatePath("/admin");
+    redirect("/admin?sucesso=duplicado");
   }
 
   const { error } = await supabase.from("imoveis").insert({ ...dados, fotos: novasFotos });
@@ -78,10 +78,10 @@ export async function criarImovel(formData: FormData) {
     throw new Error("Não foi possível criar o imóvel.");
   }
 
-  revalidatePath("/admin/imoveis");
+  revalidatePath("/admin");
   revalidatePath("/imoveis");
   revalidatePath("/");
-  redirect("/admin/imoveis?sucesso=criado");
+  redirect("/admin?sucesso=criado");
 }
 
 export async function atualizarImovel(formData: FormData) {
@@ -105,11 +105,11 @@ export async function atualizarImovel(formData: FormData) {
     throw new Error("Não foi possível atualizar o imóvel.");
   }
 
-  revalidatePath("/admin/imoveis");
+  revalidatePath("/admin");
   revalidatePath(`/imoveis/${id}`);
   revalidatePath("/imoveis");
   revalidatePath("/");
-  redirect("/admin/imoveis?sucesso=atualizado");
+  redirect("/admin?sucesso=atualizado");
 }
 
 export async function excluirImovel(formData: FormData) {
@@ -121,8 +121,8 @@ export async function excluirImovel(formData: FormData) {
   const { error } = await supabase.from("imoveis").delete().eq("id", id);
   if (error) console.error("excluirImovel:", error);
 
-  revalidatePath("/admin/imoveis");
+  revalidatePath("/admin");
   revalidatePath("/imoveis");
   revalidatePath("/");
-  redirect("/admin/imoveis?sucesso=excluido");
+  redirect("/admin?sucesso=excluido");
 }
