@@ -105,4 +105,5 @@ export async function excluirImovel(formData: FormData) {
   revalidatePath("/admin/imoveis");
   revalidatePath("/imoveis");
   revalidatePath("/");
+  redirect("/admin/imoveis?sucesso=excluido");
 }

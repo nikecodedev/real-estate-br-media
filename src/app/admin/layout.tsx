@@ -1,6 +1,8 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { sair } from "@/app/actions/auth";
+import { AdminToast } from "@/components/admin/toast";
 
 export const metadata = { title: "Painel administrativo" };
 
@@ -12,6 +14,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen bg-neutral-50">
+      <Suspense fallback={null}>
+        <AdminToast />
+      </Suspense>
+
       {user && (
         <header className="border-b border-black/10 bg-ln-ink text-white">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-6">

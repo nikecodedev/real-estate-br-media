@@ -10,10 +10,20 @@ export function PropertySubmissionForm() {
 
   if (estado.ok) {
     return (
-      <p className="rounded-md bg-green-50 p-5 text-green-700">
-        Recebemos os dados do seu imóvel! A Lis Nery vai analisar e entrar em
-        contato em breve.
-      </p>
+      <div className="animate-toast-in flex items-start gap-3 rounded-md bg-green-50 p-5 text-green-700">
+        <span
+          className="animate-ring-pulse flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-500 text-white"
+          style={{ ["--pulse-color" as string]: "#22c55e" }}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="h-4 w-4">
+            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+        <p className="pt-1">
+          Recebemos os dados do seu imóvel! A Lis Nery vai analisar e entrar em
+          contato em breve.
+        </p>
+      </div>
     );
   }
 

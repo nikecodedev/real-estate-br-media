@@ -4,29 +4,12 @@ import { getTodosImoveisAdmin } from "@/lib/admin-data";
 import { formatarPreco } from "@/lib/format";
 import { DeleteImovelButton } from "@/components/admin/delete-imovel-button";
 
-const MENSAGENS_SUCESSO: Record<string, string> = {
-  criado: "Imóvel criado com sucesso.",
-  atualizado: "Alterações salvas com sucesso.",
-};
-
-export default async function AdminImoveisPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ sucesso?: string }>;
-}) {
+export default async function AdminImoveisPage() {
   await requireAdmin();
   const imoveis = await getTodosImoveisAdmin();
-  const { sucesso } = await searchParams;
-  const mensagemSucesso = sucesso ? MENSAGENS_SUCESSO[sucesso] : undefined;
 
   return (
     <div>
-      {mensagemSucesso && (
-        <div className="mb-6 rounded-md border border-green-600/20 bg-green-50 px-4 py-3 text-sm font-medium text-green-800">
-          {mensagemSucesso}
-        </div>
-      )}
-
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h1 className="text-2xl font-bold text-ln-ink">Imóveis</h1>
         <Link

@@ -10,9 +10,17 @@ export function ContactForm({ imovelId }: { imovelId?: string }) {
 
   if (estado.ok) {
     return (
-      <p className="rounded-md bg-green-50 p-4 text-sm text-green-700">
-        Mensagem enviada! A Lis Nery vai entrar em contato em breve.
-      </p>
+      <div className="animate-toast-in flex items-start gap-3 rounded-md bg-green-50 p-4 text-sm text-green-700">
+        <span
+          className="animate-ring-pulse flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-500 text-white"
+          style={{ ["--pulse-color" as string]: "#22c55e" }}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3} className="h-3.5 w-3.5">
+            <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+        <p className="pt-0.5">Mensagem enviada! A Lis Nery vai entrar em contato em breve.</p>
+      </div>
     );
   }
 
