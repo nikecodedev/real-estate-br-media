@@ -13,7 +13,10 @@ export function DeleteImovelButton({ id, titulo }: { id: string; titulo: string 
       }}
     >
       <input type="hidden" name="id" value={id} />
-      <button type="submit" className="text-sm font-medium text-red-600 hover:underline">
+      <button
+        type="submit"
+        className="rounded-md border border-red-200 px-2.5 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-50"
+      >
         Excluir
       </button>
     </form>
