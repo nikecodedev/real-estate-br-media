@@ -46,6 +46,7 @@ export async function getImoveis(
     }
     if (filtros.tipo) query = query.eq("tipo", filtros.tipo);
     if (filtros.cidade) query = query.eq("cidade", filtros.cidade);
+    if (filtros.finalidade) query = query.eq("finalidade", filtros.finalidade);
     if (filtros.precoMin !== undefined) query = query.gte("preco", filtros.precoMin);
     if (filtros.precoMax !== undefined) query = query.lte("preco", filtros.precoMax);
 

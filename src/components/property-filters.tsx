@@ -9,6 +9,7 @@ export function PropertyFilters({ cidades }: { cidades: string[] }) {
 
   const [busca, setBusca] = useState(searchParams.get("busca") ?? "");
   const [tipo, setTipo] = useState(searchParams.get("tipo") ?? "");
+  const [finalidade, setFinalidade] = useState(searchParams.get("finalidade") ?? "");
   const [cidade, setCidade] = useState(searchParams.get("cidade") ?? "");
   const [precoMin, setPrecoMin] = useState(searchParams.get("precoMin") ?? "");
   const [precoMax, setPrecoMax] = useState(searchParams.get("precoMax") ?? "");
@@ -18,6 +19,7 @@ export function PropertyFilters({ cidades }: { cidades: string[] }) {
     const params = new URLSearchParams();
     if (busca.trim()) params.set("busca", busca.trim());
     if (tipo) params.set("tipo", tipo);
+    if (finalidade) params.set("finalidade", finalidade);
     if (cidade) params.set("cidade", cidade);
     if (precoMin) params.set("precoMin", precoMin);
     if (precoMax) params.set("precoMax", precoMax);
@@ -27,6 +29,7 @@ export function PropertyFilters({ cidades }: { cidades: string[] }) {
   function limpar() {
     setBusca("");
     setTipo("");
+    setFinalidade("");
     setCidade("");
     setPrecoMin("");
     setPrecoMax("");
@@ -36,7 +39,7 @@ export function PropertyFilters({ cidades }: { cidades: string[] }) {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid grid-cols-1 gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-6"
+      className="grid grid-cols-1 gap-3 rounded-xl border border-black/5 bg-white p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-7"
     >
       <input
         type="text"
@@ -55,8 +58,19 @@ export function PropertyFilters({ cidades }: { cidades: string[] }) {
         <option value="apartamento">Apartamento</option>
         <option value="casa">Casa</option>
         <option value="terreno">Terreno</option>
+        <option value="loteamento">Loteamento</option>
         <option value="comercial">Comercial</option>
         <option value="rural">Rural</option>
+      </select>
+
+      <select
+        value={finalidade}
+        onChange={(e) => setFinalidade(e.target.value)}
+        className="rounded-md border border-black/10 px-3 py-2.5 text-sm focus:border-ln-gold focus:outline-none"
+      >
+        <option value="">Venda ou aluguel</option>
+        <option value="venda">Venda</option>
+        <option value="aluguel">Aluguel</option>
       </select>
 
       <select
@@ -88,7 +102,7 @@ export function PropertyFilters({ cidades }: { cidades: string[] }) {
         className="rounded-md border border-black/10 px-3 py-2.5 text-sm focus:border-ln-gold focus:outline-none"
       />
 
-      <div className="flex gap-2 sm:col-span-2 lg:col-span-6">
+      <div className="flex gap-2 sm:col-span-2 lg:col-span-7">
         <button
           type="submit"
           className="rounded-md bg-ln-gold px-5 py-2.5 text-sm font-semibold text-ln-ink transition hover:bg-ln-gold-dark hover:text-white"

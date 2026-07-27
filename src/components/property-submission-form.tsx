@@ -55,6 +55,7 @@ export function PropertySubmissionForm() {
         <option value="apartamento">Apartamento</option>
         <option value="casa">Casa</option>
         <option value="terreno">Terreno</option>
+        <option value="loteamento">Loteamento</option>
         <option value="comercial">Comercial</option>
         <option value="rural">Rural</option>
       </select>

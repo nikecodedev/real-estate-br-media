@@ -1,6 +1,6 @@
 export type StatusImovel = "disponivel" | "vendido" | "alugado";
 export type FinalidadeImovel = "venda" | "aluguel";
-export type TipoImovel = "apartamento" | "casa" | "terreno" | "comercial" | "rural";
+export type TipoImovel = "apartamento" | "casa" | "terreno" | "loteamento" | "comercial" | "rural";
 
 export interface Imovel {
   id: string;
@@ -29,6 +29,7 @@ export interface FiltrosImoveis {
   busca?: string;
   tipo?: string;
   cidade?: string;
+  finalidade?: string;
   precoMin?: number;
   precoMax?: number;
 }

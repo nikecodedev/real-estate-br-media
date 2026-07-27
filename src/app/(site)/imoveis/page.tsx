@@ -15,13 +15,14 @@ export default async function ImoveisPage({
   const params = await searchParams;
   const busca = typeof params.busca === "string" ? params.busca : undefined;
   const tipo = typeof params.tipo === "string" ? params.tipo : undefined;
+  const finalidade = typeof params.finalidade === "string" ? params.finalidade : undefined;
   const cidade = typeof params.cidade === "string" ? params.cidade : undefined;
   const precoMin = typeof params.precoMin === "string" ? Number(params.precoMin) : undefined;
   const precoMax = typeof params.precoMax === "string" ? Number(params.precoMax) : undefined;
   const pagina = typeof params.pagina === "string" ? Math.max(1, Number(params.pagina) || 1) : 1;
 
   const [{ itens: imoveis, total, totalPaginas }, cidades] = await Promise.all([
-    getImoveis({ busca, tipo, cidade, precoMin, precoMax }, pagina),
+    getImoveis({ busca, tipo, finalidade, cidade, precoMin, precoMax }, pagina),
     getCidadesDisponiveis(),
   ]);
 
@@ -29,6 +30,7 @@ export default async function ImoveisPage({
     const url = new URLSearchParams();
     if (busca) url.set("busca", busca);
     if (tipo) url.set("tipo", tipo);
+    if (finalidade) url.set("finalidade", finalidade);
     if (cidade) url.set("cidade", cidade);
     if (precoMin !== undefined) url.set("precoMin", String(precoMin));
     if (precoMax !== undefined) url.set("precoMax", String(precoMax));

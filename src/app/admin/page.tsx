@@ -61,6 +61,7 @@ const ROTULO_TIPO: Record<string, string> = {
   apartamento: "Apartamento",
   casa: "Casa",
   terreno: "Terreno",
+  loteamento: "Loteamento",
   comercial: "Comercial",
   rural: "Rural",
 };
