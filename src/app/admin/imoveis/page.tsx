@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { requireAdmin } from "@/lib/auth";
-import { getTodosImoveisAdmin } from "@/lib/admin-data";
+import { getImoveisAdminPaginado } from "@/lib/admin-data";
 import { formatarPreco } from "@/lib/format";
 import { DeleteImovelButton } from "@/components/admin/delete-imovel-button";
+import { Pagination } from "@/components/pagination";
 import type { StatusImovel } from "@/lib/types";
 
 const ROTULO_TIPO: Record<string, string> = {
@@ -26,9 +27,15 @@ const STATUS_ROTULO: Record<StatusImovel, string> = {
   alugado: "Alugado",
 };
 
-export default async function AdminImoveisPage() {
+export default async function AdminImoveisPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ pagina?: string }>;
+}) {
   await requireAdmin();
-  const imoveis = await getTodosImoveisAdmin();
+  const { pagina: paginaParam } = await searchParams;
+  const pagina = Math.max(1, Number(paginaParam) || 1);
+  const { itens: imoveis, totalPaginas } = await getImoveisAdminPaginado(pagina);
 
   return (
     <div>
@@ -138,6 +145,12 @@ export default async function AdminImoveisPage() {
           </table>
         </div>
       </div>
+
+      <Pagination
+        paginaAtual={pagina}
+        totalPaginas={totalPaginas}
+        criarHref={(p) => (p > 1 ? `/admin/imoveis?pagina=${p}` : "/admin/imoveis")}
+      />
     </div>
   );
 }

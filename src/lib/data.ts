@@ -20,10 +20,23 @@ export async function getDestaques(limite = 6): Promise<Imovel[]> {
   }
 }
 
-export async function getImoveis(filtros: FiltrosImoveis = {}): Promise<Imovel[]> {
+export interface ResultadoPaginado<T> {
+  itens: T[];
+  total: number;
+  totalPaginas: number;
+}
+
+export async function getImoveis(
+  filtros: FiltrosImoveis = {},
+  pagina = 1,
+  porPagina = 12
+): Promise<ResultadoPaginado<Imovel>> {
   try {
     const supabase = await createClient();
-    let query = supabase.from("imoveis").select("*").order("criado_em", { ascending: false });
+    let query = supabase
+      .from("imoveis")
+      .select("*", { count: "exact" })
+      .order("criado_em", { ascending: false });
 
     if (filtros.busca) {
       const termo = filtros.busca.trim();
@@ -36,12 +49,15 @@ export async function getImoveis(filtros: FiltrosImoveis = {}): Promise<Imovel[]
     if (filtros.precoMin !== undefined) query = query.gte("preco", filtros.precoMin);
     if (filtros.precoMax !== undefined) query = query.lte("preco", filtros.precoMax);
 
-    const { data, error } = await query;
+    const de = (pagina - 1) * porPagina;
+    const { data, error, count } = await query.range(de, de + porPagina - 1);
     if (error) throw error;
-    return data ?? [];
+
+    const total = count ?? 0;
+    return { itens: data ?? [], total, totalPaginas: Math.max(1, Math.ceil(total / porPagina)) };
   } catch (err) {
     console.error("getImoveis:", err);
-    return [];
+    return { itens: [], total: 0, totalPaginas: 1 };
   }
 }
 

@@ -1,7 +1,8 @@
 import { requireAdmin } from "@/lib/auth";
-import { getSubmissoes } from "@/lib/admin-data";
+import { getSubmissoesPaginado } from "@/lib/admin-data";
 import { formatarPreco } from "@/lib/format";
 import { atualizarStatusSubmissao } from "@/app/actions/admin-lists";
+import { Pagination } from "@/components/pagination";
 
 const ROTULO_STATUS: Record<string, string> = {
   novo: "Novo",
@@ -10,9 +11,15 @@ const ROTULO_STATUS: Record<string, string> = {
   recusado: "Recusado",
 };
 
-export default async function AdminSubmissoesPage() {
+export default async function AdminSubmissoesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ pagina?: string }>;
+}) {
   await requireAdmin();
-  const submissoes = await getSubmissoes();
+  const { pagina: paginaParam } = await searchParams;
+  const pagina = Math.max(1, Number(paginaParam) || 1);
+  const { itens: submissoes, totalPaginas } = await getSubmissoesPaginado(pagina);
 
   return (
     <div>
@@ -70,6 +77,12 @@ export default async function AdminSubmissoesPage() {
           </p>
         )}
       </div>
+
+      <Pagination
+        paginaAtual={pagina}
+        totalPaginas={totalPaginas}
+        criarHref={(p) => (p > 1 ? `/admin/submissoes?pagina=${p}` : "/admin/submissoes")}
+      />
     </div>
   );
 }

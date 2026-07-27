@@ -1,10 +1,17 @@
 import { requireAdmin } from "@/lib/auth";
-import { getMensagens } from "@/lib/admin-data";
+import { getMensagensPaginado } from "@/lib/admin-data";
 import { marcarMensagemLida } from "@/app/actions/admin-lists";
+import { Pagination } from "@/components/pagination";
 
-export default async function AdminMensagensPage() {
+export default async function AdminMensagensPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ pagina?: string }>;
+}) {
   await requireAdmin();
-  const mensagens = await getMensagens();
+  const { pagina: paginaParam } = await searchParams;
+  const pagina = Math.max(1, Number(paginaParam) || 1);
+  const { itens: mensagens, totalPaginas } = await getMensagensPaginado(pagina);
 
   return (
     <div>
@@ -49,6 +56,12 @@ export default async function AdminMensagensPage() {
           </p>
         )}
       </div>
+
+      <Pagination
+        paginaAtual={pagina}
+        totalPaginas={totalPaginas}
+        criarHref={(p) => (p > 1 ? `/admin/mensagens?pagina=${p}` : "/admin/mensagens")}
+      />
     </div>
   );
 }
