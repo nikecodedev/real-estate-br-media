@@ -91,12 +91,12 @@ export function PropertyGallery({ fotos, titulo }: { fotos: string[]; titulo: st
             <BotaoSeta
               direcao="esquerda"
               onClick={anterior}
-              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              className="absolute left-3 top-1/2 z-10 -translate-y-1/2 opacity-70 transition-opacity duration-200 hover:opacity-100 group-hover:opacity-100"
             />
             <BotaoSeta
               direcao="direita"
               onClick={proxima}
-              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+              className="absolute right-3 top-1/2 z-10 -translate-y-1/2 opacity-70 transition-opacity duration-200 hover:opacity-100 group-hover:opacity-100"
             />
             <span className="pointer-events-none absolute bottom-3 right-3 z-10 rounded-full bg-black/50 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
               {ativo + 1} / {total}
