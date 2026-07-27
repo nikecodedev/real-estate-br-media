@@ -158,7 +158,7 @@ export function ImovelFormFields({ imovel }: { imovel?: Imovel }) {
           type="file"
           accept="image/*"
           multiple
-          className="block w-full text-sm text-neutral-600"
+          className="block w-full cursor-pointer rounded-md border border-dashed border-black/20 bg-neutral-50 px-3 py-3 text-sm text-neutral-600 file:mr-4 file:cursor-pointer file:rounded-md file:border-0 file:bg-ln-gold file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white file:transition hover:file:bg-ln-gold-dark"
         />
       </div>
     </>
