@@ -90,7 +90,7 @@ export async function criarImovel(formData: FormData) {
   revalidatePath("/admin/imoveis");
   revalidatePath("/imoveis");
   revalidatePath("/");
-  redirect("/admin/imoveis");
+  redirect("/admin/imoveis?sucesso=criado");
 }
 
 export async function atualizarImovel(formData: FormData) {
@@ -118,7 +118,7 @@ export async function atualizarImovel(formData: FormData) {
   revalidatePath(`/imoveis/${id}`);
   revalidatePath("/imoveis");
   revalidatePath("/");
-  redirect("/admin/imoveis");
+  redirect("/admin/imoveis?sucesso=atualizado");
 }
 
 export async function excluirImovel(formData: FormData) {
