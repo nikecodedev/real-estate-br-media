@@ -76,3 +76,11 @@ create index if not exists imoveis_cidade_bairro_idx on public.imoveis (cidade, 
 
 -- Storage bucket for property photos (create in Dashboard > Storage, or via API):
 -- bucket name: imoveis, public: true
+
+-- The admin panel uploads photos directly from the browser (not through the
+-- server) to stay under Vercel's request body limit, so the logged-in admin's
+-- own session needs permission to write to the bucket:
+create policy "admin autenticado pode enviar fotos" on storage.objects
+  for insert
+  to authenticated
+  with check (bucket_id = 'imoveis');

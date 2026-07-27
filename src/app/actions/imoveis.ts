@@ -1,12 +1,9 @@
 "use server";
 
-import { randomUUID } from "crypto";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { requireAdmin } from "@/lib/auth";
 import { createAdminClient } from "@/lib/supabase/admin";
-
-const BUCKET = "imoveis";
 
 function campoTexto(formData: FormData, nome: string): string {
   return String(formData.get(nome) ?? "").trim();
@@ -20,31 +17,6 @@ function campoNumero(formData: FormData, nome: string): number {
 function campoNumeroOuNulo(formData: FormData, nome: string): number | null {
   const v = campoTexto(formData, nome);
   return v ? Number(v) : null;
-}
-
-async function uploadFotos(formData: FormData): Promise<string[]> {
-  const supabase = createAdminClient();
-  const arquivos = formData.getAll("fotos").filter(
-    (f): f is File => f instanceof File && f.size > 0
-  );
-
-  const urls: string[] = [];
-  for (const arquivo of arquivos) {
-    const extensao = arquivo.name.split(".").pop() || "jpg";
-    const caminho = `${randomUUID()}.${extensao}`;
-    const { error } = await supabase.storage
-      .from(BUCKET)
-      .upload(caminho, arquivo, { contentType: arquivo.type, upsert: false });
-
-    if (error) {
-      console.error("uploadFotos:", error);
-      continue;
-    }
-
-    const { data } = supabase.storage.from(BUCKET).getPublicUrl(caminho);
-    urls.push(data.publicUrl);
-  }
-  return urls;
 }
 
 function montarDadosImovel(formData: FormData) {
@@ -76,7 +48,7 @@ function montarDadosImovel(formData: FormData) {
 export async function criarImovel(formData: FormData) {
   await requireAdmin();
 
-  const novasFotos = await uploadFotos(formData);
+  const novasFotos = formData.getAll("fotos_novas").map(String).filter(Boolean);
   const dados = montarDadosImovel(formData);
 
   const supabase = createAdminClient();
@@ -100,7 +72,7 @@ export async function atualizarImovel(formData: FormData) {
   if (!id) throw new Error("Imóvel inválido.");
 
   const fotosMantidas = formData.getAll("manter_fotos").map(String);
-  const novasFotos = await uploadFotos(formData);
+  const novasFotos = formData.getAll("fotos_novas").map(String).filter(Boolean);
   const dados = montarDadosImovel(formData);
 
   const supabase = createAdminClient();
